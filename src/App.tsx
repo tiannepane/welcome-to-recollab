@@ -6,6 +6,10 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import Login from "./pages/Login";
 import Profile from "./pages/onboarding/Profile";
 import Company from "./pages/onboarding/Company";
+import BuildingName from "./pages/onboarding/BuildingName";
+import BuildingAddress from "./pages/onboarding/BuildingAddress";
+import BuildingDetails from "./pages/onboarding/BuildingDetails";
+import BuildingHistory from "./pages/onboarding/BuildingHistory";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -21,6 +25,10 @@ const App = () => (
           <Route path="/login" element={<Login />} />
           <Route path="/onboarding/profile" element={<Profile />} />
           <Route path="/onboarding/company" element={<Company />} />
+          <Route path="/onboarding/building-name" element={<BuildingName />} />
+          <Route path="/onboarding/building-address" element={<BuildingAddress />} />
+          <Route path="/onboarding/building-details" element={<BuildingDetails />} />
+          <Route path="/onboarding/building-history" element={<BuildingHistory />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
