@@ -1,6 +1,6 @@
 import { useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, ArrowRight } from "lucide-react";
 import OnboardingLayout from "@/components/OnboardingLayout";
 
 const COUNTRIES = ["Canada", "United States", "Other"] as const;
@@ -23,12 +23,6 @@ const US_STATES = [
   "Tennessee", "Texas", "Utah", "Vermont", "Virginia", "Washington",
   "West Virginia", "Wisconsin", "Wyoming",
 ];
-
-const selectClass =
-  "w-full h-11 px-3.5 rounded-lg border border-input bg-background text-foreground text-[15px] focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent transition-shadow appearance-none";
-
-const inputClass =
-  "w-full h-11 px-3.5 rounded-lg border border-input bg-background text-foreground text-[15px] placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent transition-shadow";
 
 export default function BuildingAddress() {
   const navigate = useNavigate();
@@ -54,38 +48,37 @@ export default function BuildingAddress() {
 
   return (
     <OnboardingLayout currentStep={4}>
-      <h1 className="heading-md mb-2">Where is it located?</h1>
-      <p className="text-muted-foreground mb-8">&nbsp;</p>
+      <h1 className="heading-md mb-10">Where is it located?</h1>
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label className="block text-[13.5px] font-medium text-foreground mb-1.5">Street Address</label>
-          <input type="text" placeholder="123 Main Street" value={street} onChange={(e) => setStreet(e.target.value)} className={inputClass} required />
+          <label className="block text-[13px] font-medium text-muted-foreground mb-2">Street Address</label>
+          <input type="text" placeholder="123 Main Street" value={street} onChange={(e) => setStreet(e.target.value)} className="pill-input" required />
         </div>
         <div>
-          <label className="block text-[13.5px] font-medium text-foreground mb-1.5">City</label>
-          <input type="text" placeholder="Toronto" value={city} onChange={(e) => setCity(e.target.value)} className={inputClass} required />
+          <label className="block text-[13px] font-medium text-muted-foreground mb-2">City</label>
+          <input type="text" placeholder="Toronto" value={city} onChange={(e) => setCity(e.target.value)} className="pill-input" required />
         </div>
         <div>
-          <label className="block text-[13.5px] font-medium text-foreground mb-1.5">Country</label>
+          <label className="block text-[13px] font-medium text-muted-foreground mb-2">Country</label>
           <div className="relative">
-            <select value={country} onChange={(e) => { setCountry(e.target.value); setRegion(""); }} className={`${selectClass} ${!country ? "text-muted-foreground" : ""}`} required>
+            <select value={country} onChange={(e) => { setCountry(e.target.value); setRegion(""); }} className={`pill-select pr-10 ${!country ? "text-muted-foreground" : ""}`} required>
               <option value="" disabled>Select country</option>
               {COUNTRIES.map((c) => <option key={c} value={c}>{c}</option>)}
             </select>
-            <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" />
+            <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" />
           </div>
         </div>
 
         {(country === "Canada" || country === "United States") && (
           <div>
-            <label className="block text-[13.5px] font-medium text-foreground mb-1.5">{regionLabel}</label>
+            <label className="block text-[13px] font-medium text-muted-foreground mb-2">{regionLabel}</label>
             <div className="relative">
-              <select value={region} onChange={(e) => setRegion(e.target.value)} className={`${selectClass} ${!region ? "text-muted-foreground" : ""}`}>
+              <select value={region} onChange={(e) => setRegion(e.target.value)} className={`pill-select pr-10 ${!region ? "text-muted-foreground" : ""}`}>
                 <option value="" disabled>Select {regionLabel.toLowerCase()}</option>
                 {regionOptions.map((r) => <option key={r} value={r}>{r}</option>)}
               </select>
-              <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" />
+              <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" />
             </div>
           </div>
         )}
@@ -93,9 +86,10 @@ export default function BuildingAddress() {
         <button
           type="submit"
           disabled={!isValid}
-          className="w-full h-11 rounded-lg bg-foreground text-primary-foreground text-[15px] font-medium hover:opacity-[0.88] transition-opacity disabled:opacity-40 disabled:cursor-not-allowed mt-1"
+          className="w-full h-12 rounded-full bg-foreground text-primary-foreground text-[15px] font-medium hover:opacity-[0.88] transition-opacity disabled:opacity-30 disabled:cursor-not-allowed flex items-center justify-center gap-2 mt-2"
         >
-          Continue →
+          Continue
+          <ArrowRight className="w-4 h-4" />
         </button>
       </form>
     </OnboardingLayout>

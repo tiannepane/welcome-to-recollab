@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Building2 } from "lucide-react";
+import { Building2, ArrowRight } from "lucide-react";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -15,7 +15,7 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen bg-background flex items-center justify-center px-5">
+    <div className="min-h-screen onboarding-bg flex items-center justify-center px-5">
       <motion.div
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
@@ -23,37 +23,39 @@ export default function Login() {
         className="w-full max-w-[400px] flex flex-col items-center"
       >
         {/* Logo */}
-        <div className="flex items-center gap-2 mb-10">
+        <div className="flex items-center gap-2 mb-12">
           <Building2 className="w-6 h-6 text-foreground" strokeWidth={2} />
           <span className="text-xl font-bold tracking-tight text-foreground">REcollab</span>
         </div>
 
         {/* Heading */}
         <h1 className="heading-lg text-center mb-2">Welcome to REcollab</h1>
-        <p className="text-muted-foreground text-center mb-8">
+        <p className="text-muted-foreground text-center mb-10">
           The financial operating system for asset managers.
         </p>
 
-        {/* Form */}
-        <form onSubmit={handleSubmit} className="w-full space-y-3">
-          <input
-            type="email"
-            placeholder="you@company.com"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="w-full h-11 px-3.5 rounded-lg border border-input bg-background text-foreground text-[15px] placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent transition-shadow"
-            required
-          />
-          <button
-            type="submit"
-            className="w-full h-11 rounded-lg bg-foreground text-primary-foreground text-[15px] font-medium hover:opacity-[0.88] transition-opacity"
-          >
-            Continue →
-          </button>
+        {/* Email input with embedded arrow */}
+        <form onSubmit={handleSubmit} className="w-full">
+          <div className="relative">
+            <input
+              type="email"
+              placeholder="you@company.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="pill-input pr-14"
+              required
+            />
+            <button
+              type="submit"
+              className="absolute right-1.5 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-foreground text-primary-foreground flex items-center justify-center hover:opacity-[0.88] transition-opacity"
+            >
+              <ArrowRight className="w-4 h-4" />
+            </button>
+          </div>
         </form>
 
         {/* Google */}
-        <button className="w-full h-11 mt-3 rounded-lg border border-input bg-background text-foreground text-[15px] font-medium hover:bg-muted/50 transition-colors flex items-center justify-center gap-2.5">
+        <button className="w-full h-12 mt-3 rounded-full border bg-background text-foreground text-[15px] font-medium hover:bg-muted/50 transition-colors flex items-center justify-center gap-2.5" style={{ borderColor: "hsl(0 0% 88%)" }}>
           <svg viewBox="0 0 24 24" className="w-[18px] h-[18px]" fill="none">
             <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" fill="#4285F4"/>
             <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
@@ -64,7 +66,7 @@ export default function Login() {
         </button>
 
         {/* Footer */}
-        <p className="text-[13px] text-muted-foreground mt-8">
+        <p className="text-[13px] text-muted-foreground mt-10">
           Terms · Privacy
         </p>
       </motion.div>

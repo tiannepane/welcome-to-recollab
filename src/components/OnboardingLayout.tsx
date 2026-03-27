@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { Check, Building2 } from "lucide-react";
 
 const STEPS = [
@@ -51,14 +51,14 @@ function StepIndicator({ step, currentStep }: { step: number; currentStep: numbe
   }
   return (
     <div className="w-5 h-5 flex items-center justify-center flex-shrink-0">
-      <div className="w-2 h-2 rounded-full bg-muted-foreground/50" />
+      <div className="w-2 h-2 rounded-full bg-muted-foreground/40" />
     </div>
   );
 }
 
 function DesktopSidebar({ currentStep }: { currentStep: number }) {
   return (
-    <aside className="hidden md:flex fixed left-0 top-0 bottom-0 w-[260px] flex-col bg-background border-r border-[hsl(0,0%,91%)] z-10">
+    <aside className="hidden md:flex fixed left-0 top-0 bottom-0 w-[260px] flex-col bg-background border-r border-[hsl(0,0%,93%)] z-10">
       {/* Logo */}
       <div className="px-6 pt-7 pb-8 flex items-center gap-2">
         <Building2 className="w-5 h-5 text-foreground" strokeWidth={2} />
@@ -92,11 +92,11 @@ function DesktopSidebar({ currentStep }: { currentStep: number }) {
         </ul>
       </nav>
 
-      {/* Tip */}
+      {/* Tip — floating, no border */}
       {TIPS[currentStep] && (
         <div className="px-6 pb-6">
-          <div className="border border-input rounded-lg p-4">
-            <p className="text-[11.5px] font-semibold text-muted-foreground uppercase tracking-wide mb-1.5">
+          <div className="rounded-2xl bg-muted/50 px-4 py-3.5">
+            <p className="text-[11px] font-medium text-muted-foreground uppercase tracking-wider mb-1">
               Tip
             </p>
             <p className="text-[13px] leading-[1.45] text-muted-foreground">
@@ -112,8 +112,8 @@ function DesktopSidebar({ currentStep }: { currentStep: number }) {
 function MobileTopBar({ currentStep }: { currentStep: number }) {
   const progress = ((currentStep - 1) / STEPS.length) * 100;
   return (
-    <div className="md:hidden fixed top-0 left-0 right-0 bg-background z-20">
-      <div className="h-1 bg-muted">
+    <div className="md:hidden fixed top-0 left-0 right-0 bg-background/80 backdrop-blur-md z-20">
+      <div className="h-[3px] bg-muted">
         <div
           className="h-full bg-foreground transition-all duration-500 ease-out"
           style={{ width: `${progress}%` }}
@@ -132,23 +132,26 @@ function MobileTopBar({ currentStep }: { currentStep: number }) {
 
 export default function OnboardingLayout({ children, currentStep }: OnboardingLayoutProps) {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen onboarding-bg">
       <DesktopSidebar currentStep={currentStep} />
       <MobileTopBar currentStep={currentStep} />
 
       <div className="md:ml-[260px] min-h-screen flex items-center justify-center px-5 py-16 md:py-8">
-        <motion.div
-          key={currentStep}
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.35, ease: [0.25, 0.1, 0.25, 1] }}
-          className="w-full max-w-[440px]"
-        >
-          <p className="text-[13px] text-muted-foreground mb-4">
-            Step {currentStep} of {STEPS.length}
-          </p>
-          {children}
-        </motion.div>
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={currentStep}
+            initial={{ opacity: 0, y: 10, filter: "blur(0px)" }}
+            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+            exit={{ opacity: 0, y: -4, filter: "blur(4px)" }}
+            transition={{ duration: 0.35, ease: [0.25, 0.1, 0.25, 1] }}
+            className="w-full max-w-[440px]"
+          >
+            <p className="text-[13px] text-muted-foreground mb-6">
+              Step {currentStep} of {STEPS.length}
+            </p>
+            {children}
+          </motion.div>
+        </AnimatePresence>
       </div>
     </div>
   );

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+import { ArrowRight } from "lucide-react";
 import OnboardingLayout from "@/components/OnboardingLayout";
 
 export default function Profile() {
@@ -18,11 +19,11 @@ export default function Profile() {
   return (
     <OnboardingLayout currentStep={1}>
       <h1 className="heading-md mb-2">Let's start with you.</h1>
-      <p className="text-muted-foreground mb-8">We just need a few basics.</p>
+      <p className="text-muted-foreground mb-10">We just need a few basics.</p>
 
       <form onSubmit={handleSubmit} className="space-y-5">
         <div>
-          <label className="block text-[13.5px] font-medium text-foreground mb-1.5">
+          <label className="block text-[13px] font-medium text-muted-foreground mb-2">
             Full Name
           </label>
           <input
@@ -30,26 +31,28 @@ export default function Profile() {
             placeholder="Jane Cooper"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            className="w-full h-11 px-3.5 rounded-lg border border-input bg-background text-foreground text-[15px] placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent transition-shadow"
+            className="pill-input"
             required
           />
         </div>
         <div>
-          <label className="block text-[13.5px] font-medium text-foreground mb-1.5">
+          <label className="block text-[13px] font-medium text-muted-foreground mb-2">
             Email
           </label>
           <input
             type="email"
             value={passedEmail}
             disabled
-            className="w-full h-11 px-3.5 rounded-lg border border-input bg-muted text-muted-foreground text-[15px] cursor-not-allowed"
+            className="pill-input opacity-50 cursor-not-allowed"
           />
         </div>
         <button
           type="submit"
-          className="w-full h-11 rounded-lg bg-foreground text-primary-foreground text-[15px] font-medium hover:opacity-[0.88] transition-opacity mt-3"
+          disabled={!name.trim()}
+          className="w-full h-12 rounded-full bg-foreground text-primary-foreground text-[15px] font-medium hover:opacity-[0.88] transition-opacity disabled:opacity-30 disabled:cursor-not-allowed flex items-center justify-center gap-2 mt-2"
         >
-          Continue →
+          Continue
+          <ArrowRight className="w-4 h-4" />
         </button>
       </form>
     </OnboardingLayout>
