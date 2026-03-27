@@ -56,43 +56,59 @@
   }
 
   .heading-md {
-    @apply text-[28px] tracking-tight leading-tight text-foreground;
-    font-weight: 500;
+    @apply text-[28px] tracking-tight leading-tight;
+    font-weight: 600;
     letter-spacing: -0.025em;
+    color: #0F1729;
   }
 
   .onboarding-bg {
-    background: radial-gradient(
-      ellipse 80% 60% at 50% 45%,
-      hsl(0 0% 94% / 0.6) 0%,
-      hsl(0 0% 100%) 70%
-    );
+    background: #F7F8FA;
   }
 
   .pill-input {
-    @apply w-full h-12 px-5 rounded-full border bg-background text-foreground text-[15px] placeholder:text-muted-foreground transition-all;
-    border-color: hsl(0 0% 88%);
+    @apply w-full h-12 px-4 rounded-[10px] border text-[15px] transition-all;
+    background: rgba(0, 0, 0, 0.03);
+    border-color: rgba(0, 0, 0, 0.08);
+    color: #0F1729;
+    placeholder-color: #9CA3B8;
+  }
+  .pill-input::placeholder {
+    color: #9CA3B8;
   }
   .pill-input:focus {
     @apply outline-none;
-    border-color: hsl(0 0% 4%);
+    border-color: #0F1729;
+    background: white;
+    transition: all 150ms;
   }
 
   .pill-select {
-    @apply w-full h-12 px-5 rounded-full border bg-background text-foreground text-[15px] transition-all appearance-none;
-    border-color: hsl(0 0% 88%);
+    @apply w-full h-12 px-4 rounded-[10px] border text-[15px] transition-all appearance-none;
+    background: rgba(0, 0, 0, 0.03);
+    border-color: rgba(0, 0, 0, 0.08);
+    color: #0F1729;
   }
   .pill-select:focus {
     @apply outline-none;
-    border-color: hsl(0 0% 4%);
+    border-color: #0F1729;
+    background: white;
+    transition: all 150ms;
   }
 
   .pill-textarea {
-    @apply w-full px-5 py-3 rounded-[20px] border bg-background text-foreground text-[15px] placeholder:text-muted-foreground transition-all resize-none;
-    border-color: hsl(0 0% 88%);
+    @apply w-full px-4 py-3 rounded-[10px] border text-[15px] transition-all resize-none;
+    background: rgba(0, 0, 0, 0.03);
+    border-color: rgba(0, 0, 0, 0.08);
+    color: #0F1729;
+  }
+  .pill-textarea::placeholder {
+    color: #9CA3B8;
   }
   .pill-textarea:focus {
     @apply outline-none;
-    border-color: hsl(0 0% 4%);
+    border-color: #0F1729;
+    background: white;
+    transition: all 150ms;
   }
 }

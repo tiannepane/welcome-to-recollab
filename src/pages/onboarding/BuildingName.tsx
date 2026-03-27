@@ -32,7 +32,7 @@ export default function BuildingName() {
           />
           <button
             type="submit"
-            className="absolute right-1.5 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-foreground text-primary-foreground flex items-center justify-center hover:opacity-[0.88] transition-opacity"
+            className="absolute right-1.5 top-1/2 -translate-y-1/2 w-9 h-9 rounded-[8px] bg-[#0F1729] text-white flex items-center justify-center hover:bg-[#1a2640] transition-colors duration-150"
           >
             <ArrowRight className="w-4 h-4" />
           </button>

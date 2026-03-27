@@ -6,7 +6,7 @@ export default function Complete() {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen onboarding-bg flex items-center justify-center px-5">
+    <div className="min-h-screen flex items-center justify-center px-5" style={{ background: "#F7F8FA" }}>
       <div className="w-full max-w-[400px] flex flex-col items-center text-center">
         {/* Logo */}
         <div className="flex items-center gap-2 mb-16">
@@ -43,7 +43,7 @@ export default function Complete() {
 
           <button
             onClick={() => navigate("/upload")}
-            className="w-full h-12 rounded-full bg-foreground text-primary-foreground text-[15px] font-medium hover:opacity-[0.88] transition-opacity flex items-center justify-center gap-2"
+            className="w-full h-12 rounded-[10px] bg-[#0F1729] text-white text-[15px] font-medium hover:bg-[#1a2640] transition-colors duration-150 flex items-center justify-center gap-2"
           >
             Upload Documents
             <ArrowRight className="w-4 h-4" />

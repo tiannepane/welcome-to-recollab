@@ -51,12 +51,12 @@ export default function Company() {
                 key={role}
                 type="button"
                 onClick={() => setSelectedRole(role)}
-                className={`h-11 rounded-full text-[14px] font-medium transition-all ${
+                className={`h-11 rounded-[10px] text-[14px] font-medium transition-all ${
                   selectedRole === role
-                    ? "bg-foreground text-primary-foreground"
-                    : "bg-background text-muted-foreground hover:text-foreground"
+                    ? "bg-[#0F1729] text-white"
+                    : "text-muted-foreground hover:text-foreground"
                 }`}
-                style={selectedRole !== role ? { border: "1px solid hsl(0 0% 88%)" } : undefined}
+                style={selectedRole !== role ? { border: "1px solid rgba(0,0,0,0.08)", background: "rgba(0,0,0,0.03)" } : undefined}
               >
                 {role}
               </button>
@@ -67,7 +67,7 @@ export default function Company() {
         <button
           type="submit"
           disabled={!companyName.trim() || !selectedRole}
-          className="w-full h-12 rounded-full bg-foreground text-primary-foreground text-[15px] font-medium hover:opacity-[0.88] transition-opacity disabled:opacity-30 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+          className="w-full h-12 rounded-[10px] bg-[#0F1729] text-white text-[15px] font-medium hover:bg-[#1a2640] transition-colors duration-150 disabled:opacity-30 disabled:cursor-not-allowed flex items-center justify-center gap-2"
         >
           Continue
           <ArrowRight className="w-4 h-4" />

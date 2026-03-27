@@ -19,7 +19,7 @@ export default function Profile() {
   return (
     <OnboardingLayout currentStep={1}>
       <h1 className="heading-md mb-2">Let's start with you.</h1>
-      <p className="text-muted-foreground mb-10">We just need a few basics.</p>
+      <p className="text-[15px] font-normal mb-10" style={{ color: "#5A6178" }}>We just need a few basics.</p>
 
       <form onSubmit={handleSubmit} className="space-y-5">
         <div>
@@ -49,7 +49,7 @@ export default function Profile() {
         <button
           type="submit"
           disabled={!name.trim()}
-          className="w-full h-12 rounded-full bg-foreground text-primary-foreground text-[15px] font-medium hover:opacity-[0.88] transition-opacity disabled:opacity-30 disabled:cursor-not-allowed flex items-center justify-center gap-2 mt-2"
+          className="w-full h-12 rounded-[10px] bg-[#0F1729] text-white text-[15px] font-medium hover:bg-[#1a2640] transition-colors duration-150 disabled:opacity-30 disabled:cursor-not-allowed flex items-center justify-center gap-2 mt-2"
         >
           Continue
           <ArrowRight className="w-4 h-4" />

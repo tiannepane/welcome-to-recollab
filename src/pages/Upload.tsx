@@ -28,7 +28,6 @@ export default function UploadPage() {
   const navigate = useNavigate();
   const inputRef = useRef<HTMLInputElement>(null);
   const [files, setFiles] = useState<UploadedFile[]>([]);
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [isDragOver, setIsDragOver] = useState(false);
 
   const addFiles = useCallback(
@@ -36,11 +35,11 @@ export default function UploadPage() {
       const additions: UploadedFile[] = Array.from(newFiles).map((f) => ({
         id: crypto.randomUUID(),
         file: f,
-        category: selectedCategory || "Other",
+        category: "Other",
       }));
       setFiles((prev) => [...prev, ...additions]);
     },
-    [selectedCategory]
+    []
   );
 
   const removeFile = (id: string) => setFiles((prev) => prev.filter((f) => f.id !== id));
@@ -58,18 +57,24 @@ export default function UploadPage() {
   );
 
   return (
-    <div className="min-h-screen onboarding-bg">
+    <div className="min-h-screen" style={{ background: "#F7F8FA" }}>
       <TopNavbar />
 
-      <div className="max-w-[680px] mx-auto px-5 pt-24 pb-16">
+      <div className="max-w-[640px] mx-auto px-5 pt-24 pb-16">
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.35, ease: [0.25, 0.1, 0.25, 1] }}
         >
-          <h1 className="heading-lg mb-2">Upload your documents.</h1>
-          <p className="text-muted-foreground mb-10">
-            Drop in anything you have — we'll handle the rest.
+          {/* Headline */}
+          <h1
+            className="text-[32px] tracking-tight leading-tight mb-2"
+            style={{ fontWeight: 600, color: "#0F1729", letterSpacing: "-0.025em" }}
+          >
+            Upload your documents.
+          </h1>
+          <p className="mb-10" style={{ fontSize: "15px", color: "#5A6178" }}>
+            Drop in anything you have. We'll handle the rest.
           </p>
 
           {/* Drop zone */}
@@ -81,18 +86,23 @@ export default function UploadPage() {
             onDragLeave={() => setIsDragOver(false)}
             onDrop={handleDrop}
             onClick={() => inputRef.current?.click()}
-            className={`rounded-2xl border border-dashed cursor-pointer transition-all py-16 flex flex-col items-center justify-center gap-3 ${
-              isDragOver
-                ? "border-foreground bg-[hsl(0,0%,98%)]"
-                : "border-[hsl(0,0%,88%)] hover:border-foreground"
-            }`}
+            className="flex flex-col items-center justify-center gap-3 cursor-pointer"
+            style={{
+              height: "220px",
+              background: isDragOver ? "rgba(255,255,255,0.9)" : "rgba(255, 255, 255, 0.7)",
+              backdropFilter: "blur(16px)",
+              WebkitBackdropFilter: "blur(16px)",
+              border: `1.5px dashed ${isDragOver ? "#0F1729" : "rgba(0, 0, 0, 0.1)"}`,
+              borderRadius: "16px",
+              transition: "all 150ms",
+            }}
           >
-            <Upload className="w-7 h-7 text-foreground" strokeWidth={1.5} />
-            <p className="text-[15px] text-foreground font-medium">
+            <Upload className="w-5 h-5" style={{ color: "#9CA3B8" }} strokeWidth={1.5} />
+            <p style={{ fontSize: "15px", fontWeight: 500, color: "#0F1729" }}>
               Drag files here or click to browse
             </p>
-            <p className="text-[13px] text-muted-foreground">
-              PDFs, spreadsheets, Word docs — any format
+            <p style={{ fontSize: "13px", color: "#9CA3B8" }}>
+              Reserve studies, budgets, engineering reports, financial statements. Any format.
             </p>
           </div>
 
@@ -107,29 +117,6 @@ export default function UploadPage() {
             }}
           />
 
-          {/* Category pills */}
-          <div className="flex flex-wrap gap-2 mt-6">
-            {CATEGORIES.map((cat) => (
-              <button
-                key={cat}
-                type="button"
-                onClick={() => setSelectedCategory(selectedCategory === cat ? null : cat)}
-                className={`h-9 px-4 rounded-full text-[13px] font-medium transition-all ${
-                  selectedCategory === cat
-                    ? "bg-foreground text-primary-foreground"
-                    : "bg-background text-muted-foreground hover:text-foreground"
-                }`}
-                style={
-                  selectedCategory !== cat
-                    ? { border: "1px solid hsl(0 0% 88%)" }
-                    : undefined
-                }
-              >
-                {cat}
-              </button>
-            ))}
-          </div>
-
           {/* File list */}
           {files.length > 0 && (
             <div className="mt-8 space-y-2">
@@ -141,28 +128,36 @@ export default function UploadPage() {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -4 }}
                     transition={{ duration: 0.25 }}
-                    className="flex items-center gap-3 rounded-xl bg-[hsl(0,0%,98%)] px-4 py-3"
+                    className="flex items-center gap-3 px-4 py-3"
+                    style={{
+                      background: "rgba(0,0,0,0.02)",
+                      borderRadius: "12px",
+                    }}
                   >
-                    <FileText className="w-5 h-5 text-muted-foreground flex-shrink-0" strokeWidth={1.5} />
+                    <FileText className="w-5 h-5 flex-shrink-0" style={{ color: "#9CA3B8" }} strokeWidth={1.5} />
                     <div className="flex-1 min-w-0">
-                      <p className="text-[14px] text-foreground truncate">{f.file.name}</p>
-                      <p className="text-[12px] text-muted-foreground">{formatSize(f.file.size)}</p>
+                      <p className="truncate" style={{ fontSize: "14px", color: "#0F1729" }}>{f.file.name}</p>
+                      <p style={{ fontSize: "12px", color: "#9CA3B8" }}>{formatSize(f.file.size)}</p>
                     </div>
                     <div className="relative flex-shrink-0">
                       <select
                         value={f.category}
                         onChange={(e) => updateCategory(f.id, e.target.value)}
-                        className="appearance-none bg-transparent text-[13px] text-muted-foreground pr-5 cursor-pointer focus:outline-none"
+                        className="appearance-none bg-transparent pr-5 cursor-pointer focus:outline-none"
+                        style={{ fontSize: "13px", color: "#9CA3B8" }}
                       >
                         {CATEGORIES.map((c) => (
                           <option key={c} value={c}>{c}</option>
                         ))}
                       </select>
-                      <ChevronDown className="absolute right-0 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-muted-foreground pointer-events-none" />
+                      <ChevronDown className="absolute right-0 top-1/2 -translate-y-1/2 w-3.5 h-3.5 pointer-events-none" style={{ color: "#9CA3B8" }} />
                     </div>
                     <button
                       onClick={() => removeFile(f.id)}
-                      className="flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+                      className="flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center transition-colors"
+                      style={{ color: "#9CA3B8" }}
+                      onMouseEnter={(e) => { e.currentTarget.style.color = "#0F1729"; }}
+                      onMouseLeave={(e) => { e.currentTarget.style.color = "#9CA3B8"; }}
                     >
                       <X className="w-4 h-4" />
                     </button>
@@ -176,16 +171,33 @@ export default function UploadPage() {
           <div className="mt-10 flex flex-col items-center gap-4">
             <button
               onClick={() => navigate("/buildings")}
-              className="w-full max-w-[320px] h-12 rounded-full bg-foreground text-primary-foreground text-[15px] font-medium hover:opacity-[0.88] transition-opacity flex items-center justify-center gap-2"
+              className="flex items-center justify-center gap-2"
+              style={{
+                height: "48px",
+                padding: "0 32px",
+                background: "#0F1729",
+                color: "white",
+                borderRadius: "10px",
+                fontSize: "15px",
+                fontWeight: 500,
+                border: "none",
+                cursor: "pointer",
+                transition: "background 150ms",
+              }}
+              onMouseEnter={(e) => { e.currentTarget.style.background = "#1a2640"; }}
+              onMouseLeave={(e) => { e.currentTarget.style.background = "#0F1729"; }}
             >
               Go to my buildings
               <ArrowRight className="w-4 h-4" />
             </button>
             <button
               onClick={() => navigate("/buildings")}
-              className="text-[14px] text-muted-foreground hover:text-foreground transition-colors"
+              className="transition-colors"
+              style={{ fontSize: "14px", color: "#9CA3B8", background: "none", border: "none", cursor: "pointer" }}
+              onMouseEnter={(e) => { e.currentTarget.style.color = "#0F1729"; }}
+              onMouseLeave={(e) => { e.currentTarget.style.color = "#9CA3B8"; }}
             >
-              Skip for now →
+              Skip for now &rarr;
             </button>
           </div>
         </motion.div>

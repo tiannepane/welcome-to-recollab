@@ -110,12 +110,12 @@ export default function BuildingHistory() {
             <button
               type="button"
               onClick={toggleMic}
-              className={`flex-shrink-0 w-11 h-11 rounded-full flex items-center justify-center transition-all ${
+              className={`flex-shrink-0 w-11 h-11 rounded-[10px] flex items-center justify-center transition-all ${
                 isRecording
-                  ? "bg-foreground text-primary-foreground"
+                  ? "bg-[#0F1729] text-white"
                   : "text-muted-foreground hover:text-foreground"
               }`}
-              style={!isRecording ? { border: "1px solid hsl(0 0% 88%)" } : undefined}
+              style={!isRecording ? { border: "1px solid rgba(0,0,0,0.08)", background: "rgba(0,0,0,0.03)" } : undefined}
               title={isRecording ? "Stop recording" : "Voice to text"}
             >
               {isRecording ? <MicOff className="w-4 h-4" /> : <Mic className="w-4 h-4" />}
@@ -126,7 +126,7 @@ export default function BuildingHistory() {
         <button
           type="submit"
           disabled={!yearBuilt}
-          className="w-full h-12 rounded-full bg-foreground text-primary-foreground text-[15px] font-medium hover:opacity-[0.88] transition-opacity disabled:opacity-30 disabled:cursor-not-allowed flex items-center justify-center gap-2 mt-2"
+          className="w-full h-12 rounded-[10px] bg-[#0F1729] text-white text-[15px] font-medium hover:bg-[#1a2640] transition-colors duration-150 disabled:opacity-30 disabled:cursor-not-allowed flex items-center justify-center gap-2 mt-2"
         >
           Continue
           <ArrowRight className="w-4 h-4" />

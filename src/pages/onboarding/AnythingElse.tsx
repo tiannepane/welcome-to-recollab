@@ -51,7 +51,7 @@ export default function AnythingElse() {
   return (
     <OnboardingLayout currentStep={7}>
       <h1 className="heading-md mb-2">Anything else we should know?</h1>
-      <p className="text-muted-foreground mb-10">Building history, concerns, anything.</p>
+      <p className="text-[15px] font-normal mb-10" style={{ color: "#5A6178" }}>Building history, concerns, anything.</p>
 
       <form onSubmit={handleSubmit}>
         <div className="relative">

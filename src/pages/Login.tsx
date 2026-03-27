@@ -1,9 +1,109 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { Building2, ArrowRight } from "lucide-react";
 
-export default function Login() {
+const screenTransition = {
+  initial: { opacity: 0, y: 6 },
+  animate: { opacity: 1, y: 0 },
+  exit: { opacity: 0, y: -6 },
+  transition: { duration: 0.3, ease: [0.25, 0.1, 0.25, 1] },
+};
+
+function WelcomeScreen({ onContinue }: { onContinue: () => void }) {
+  return (
+    <motion.div
+      {...screenTransition}
+      className="flex flex-col items-center text-center"
+    >
+      {/* Logo */}
+      <div className="flex items-center gap-2 mb-12">
+        <Building2 className="w-6 h-6" style={{ color: "#0F1729" }} strokeWidth={2} />
+        <span className="text-xl font-bold tracking-tight" style={{ color: "#0F1729" }}>
+          REcollab
+        </span>
+      </div>
+
+      {/* Headline */}
+      <h1
+        className="leading-tight tracking-tight"
+        style={{ fontSize: "36px", fontWeight: 600, color: "#0F1729" }}
+      >
+        Welcome to REcollab.
+      </h1>
+
+      {/* Subline */}
+      <p className="mt-4" style={{ fontSize: "16px", color: "#5A6178" }}>
+        The financial operating system for residential buildings.
+      </p>
+
+      {/* Get started link */}
+      <button
+        onClick={onContinue}
+        className="mt-12 hover:underline transition-all"
+        style={{ fontSize: "14px", fontWeight: 500, color: "#0F1729", background: "none", border: "none", cursor: "pointer" }}
+      >
+        Get started &rarr;
+      </button>
+    </motion.div>
+  );
+}
+
+function ValueScreen({ onContinue }: { onContinue: () => void }) {
+  return (
+    <motion.div
+      {...screenTransition}
+      className="flex flex-col items-center text-center"
+      style={{ maxWidth: 400 }}
+    >
+      {/* First statement */}
+      <motion.p
+        initial={{ opacity: 0, y: 6 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4, delay: 0 }}
+        style={{ fontSize: "20px", fontWeight: 500, color: "#0F1729", lineHeight: 1.5 }}
+      >
+        We turn your building's financial data into a living, intelligent plan.
+      </motion.p>
+
+      {/* Second statement */}
+      <motion.p
+        initial={{ opacity: 0, y: 6 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4, delay: 0.6 }}
+        className="mt-6"
+        style={{ fontSize: "20px", fontWeight: 500, color: "#5A6178", lineHeight: 1.5 }}
+      >
+        Reserve fund, compliance, capital projects. Connected and always up to date.
+      </motion.p>
+
+      {/* Continue button */}
+      <motion.button
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.3, delay: 1.8 }}
+        onClick={onContinue}
+        className="mt-12 flex items-center justify-center gap-2"
+        style={{
+          background: "#0F1729",
+          color: "white",
+          borderRadius: "10px",
+          height: "44px",
+          padding: "0 28px",
+          fontSize: "15px",
+          fontWeight: 500,
+          border: "none",
+          cursor: "pointer",
+        }}
+        whileHover={{ background: "#1a2640" }}
+      >
+        Continue &rarr;
+      </motion.button>
+    </motion.div>
+  );
+}
+
+function SignInScreen() {
   const [email, setEmail] = useState("");
   const navigate = useNavigate();
 
@@ -15,47 +115,97 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen onboarding-bg flex items-center justify-center px-5">
-      <motion.div
-        initial={{ opacity: 0, y: 12 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.35, ease: [0.25, 0.1, 0.25, 1] }}
-        className="w-full max-w-[400px] flex flex-col items-center"
+    <motion.div
+      {...screenTransition}
+      className="w-full"
+      style={{ maxWidth: 480 }}
+    >
+      <div
+        style={{
+          background: "rgba(255, 255, 255, 0.75)",
+          backdropFilter: "blur(24px)",
+          WebkitBackdropFilter: "blur(24px)",
+          border: "1px solid rgba(255, 255, 255, 0.9)",
+          borderRadius: "20px",
+          boxShadow: "0 8px 48px rgba(0, 0, 0, 0.07)",
+          padding: "48px",
+        }}
       >
-        {/* Logo */}
-        <div className="flex items-center gap-2 mb-12">
-          <Building2 className="w-6 h-6 text-foreground" strokeWidth={2} />
-          <span className="text-xl font-bold tracking-tight text-foreground">REcollab</span>
-        </div>
-
         {/* Heading */}
-        <h1 className="heading-lg text-center mb-2">Welcome to REcollab</h1>
-        <p className="text-muted-foreground text-center mb-10">
-          The financial operating system for asset managers.
+        <h2
+          className="text-center"
+          style={{ fontSize: "22px", fontWeight: 600, color: "#0F1729" }}
+        >
+          Sign in to REcollab
+        </h2>
+        <p
+          className="text-center mt-2"
+          style={{ fontSize: "14px", color: "#9CA3B8" }}
+        >
+          Enter your work email to continue.
         </p>
 
-        {/* Email input with embedded arrow */}
-        <form onSubmit={handleSubmit} className="w-full">
+        {/* Email input */}
+        <form onSubmit={handleSubmit} className="mt-7">
           <div className="relative">
             <input
               type="email"
               placeholder="you@company.com"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="pill-input pr-14"
               required
+              className="w-full pr-14 focus:outline-none"
+              style={{
+                height: "48px",
+                padding: "0 16px",
+                paddingRight: "56px",
+                background: "rgba(0,0,0,0.03)",
+                border: "1px solid rgba(0,0,0,0.08)",
+                borderRadius: "10px",
+                fontSize: "15px",
+                color: "#0F1729",
+                transition: "all 150ms",
+              }}
+              onFocus={(e) => {
+                e.currentTarget.style.borderColor = "#0F1729";
+                e.currentTarget.style.background = "white";
+              }}
+              onBlur={(e) => {
+                e.currentTarget.style.borderColor = "rgba(0,0,0,0.08)";
+                e.currentTarget.style.background = "rgba(0,0,0,0.03)";
+              }}
             />
             <button
               type="submit"
-              className="absolute right-1.5 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-foreground text-primary-foreground flex items-center justify-center hover:opacity-[0.88] transition-opacity"
+              className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center justify-center"
+              style={{
+                width: "32px",
+                height: "32px",
+                borderRadius: "50%",
+                background: "#0F1729",
+                border: "none",
+                cursor: "pointer",
+              }}
             >
-              <ArrowRight className="w-4 h-4" />
+              <ArrowRight className="w-4 h-4 text-white" />
             </button>
           </div>
         </form>
 
-        {/* Google */}
-        <button className="w-full h-12 mt-3 rounded-full border bg-background text-foreground text-[15px] font-medium hover:bg-muted/50 transition-colors flex items-center justify-center gap-2.5" style={{ borderColor: "hsl(0 0% 88%)" }}>
+        {/* Google sign-in */}
+        <button
+          className="w-full flex items-center justify-center gap-2.5 mt-3"
+          style={{
+            height: "48px",
+            background: "white",
+            border: "1px solid rgba(0,0,0,0.08)",
+            borderRadius: "10px",
+            fontSize: "14px",
+            fontWeight: 500,
+            color: "#0F1729",
+            cursor: "pointer",
+          }}
+        >
           <svg viewBox="0 0 24 24" className="w-[18px] h-[18px]" fill="none">
             <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" fill="#4285F4"/>
             <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
@@ -66,10 +216,32 @@ export default function Login() {
         </button>
 
         {/* Footer */}
-        <p className="text-[13px] text-muted-foreground mt-10">
-          Terms · Privacy
+        <p
+          className="text-center mt-8"
+          style={{ fontSize: "12px", color: "#9CA3B8" }}
+        >
+          Terms &middot; Privacy
         </p>
-      </motion.div>
+      </div>
+    </motion.div>
+  );
+}
+
+export default function Login() {
+  const [screen, setScreen] = useState<1 | 2 | 3>(1);
+
+  return (
+    <div
+      className="min-h-screen flex items-center justify-center px-5"
+      style={{ background: "#F7F8FA" }}
+    >
+      <div className="w-full flex items-center justify-center" style={{ maxWidth: 480 }}>
+        <AnimatePresence mode="wait">
+          {screen === 1 && <WelcomeScreen key="welcome" onContinue={() => setScreen(2)} />}
+          {screen === 2 && <ValueScreen key="value" onContinue={() => setScreen(3)} />}
+          {screen === 3 && <SignInScreen key="signin" />}
+        </AnimatePresence>
+      </div>
     </div>
   );
 }
