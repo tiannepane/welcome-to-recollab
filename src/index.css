@@ -50,12 +50,49 @@
 
 @layer utilities {
   .heading-lg {
-    @apply text-[32px] font-bold tracking-tight leading-tight text-foreground;
+    @apply text-[32px] tracking-tight leading-tight text-foreground;
+    font-weight: 500;
     letter-spacing: -0.025em;
   }
 
   .heading-md {
-    @apply text-[28px] font-bold tracking-tight leading-tight text-foreground;
+    @apply text-[28px] tracking-tight leading-tight text-foreground;
+    font-weight: 500;
     letter-spacing: -0.025em;
+  }
+
+  .onboarding-bg {
+    background: radial-gradient(
+      ellipse 80% 60% at 50% 45%,
+      hsl(0 0% 94% / 0.6) 0%,
+      hsl(0 0% 100%) 70%
+    );
+  }
+
+  .pill-input {
+    @apply w-full h-12 px-5 rounded-full border bg-background text-foreground text-[15px] placeholder:text-muted-foreground transition-all;
+    border-color: hsl(0 0% 88%);
+  }
+  .pill-input:focus {
+    @apply outline-none;
+    border-color: hsl(0 0% 4%);
+  }
+
+  .pill-select {
+    @apply w-full h-12 px-5 rounded-full border bg-background text-foreground text-[15px] transition-all appearance-none;
+    border-color: hsl(0 0% 88%);
+  }
+  .pill-select:focus {
+    @apply outline-none;
+    border-color: hsl(0 0% 4%);
+  }
+
+  .pill-textarea {
+    @apply w-full px-5 py-3 rounded-[20px] border bg-background text-foreground text-[15px] placeholder:text-muted-foreground transition-all resize-none;
+    border-color: hsl(0 0% 88%);
+  }
+  .pill-textarea:focus {
+    @apply outline-none;
+    border-color: hsl(0 0% 4%);
   }
 }
