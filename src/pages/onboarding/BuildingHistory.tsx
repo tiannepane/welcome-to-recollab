@@ -55,7 +55,7 @@ export default function BuildingHistory() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    navigate("/onboarding/building-history");
+    navigate("/onboarding/anything-else");
   };
 
   return (
@@ -135,7 +135,7 @@ export default function BuildingHistory() {
         <div className="text-center pt-1">
           <button
             type="button"
-            onClick={() => navigate("/onboarding/building-history")}
+            onClick={() => navigate("/onboarding/anything-else")}
             className="text-[13px] text-muted-foreground hover:text-foreground transition-colors"
           >
             Skip this step
