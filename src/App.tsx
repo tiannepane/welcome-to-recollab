@@ -10,6 +10,8 @@ import BuildingName from "./pages/onboarding/BuildingName";
 import BuildingAddress from "./pages/onboarding/BuildingAddress";
 import BuildingDetails from "./pages/onboarding/BuildingDetails";
 import BuildingHistory from "./pages/onboarding/BuildingHistory";
+import AnythingElse from "./pages/onboarding/AnythingElse";
+import Complete from "./pages/onboarding/Complete";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -29,6 +31,8 @@ const App = () => (
           <Route path="/onboarding/building-address" element={<BuildingAddress />} />
           <Route path="/onboarding/building-details" element={<BuildingDetails />} />
           <Route path="/onboarding/building-history" element={<BuildingHistory />} />
+          <Route path="/onboarding/anything-else" element={<AnythingElse />} />
+          <Route path="/onboarding/complete" element={<Complete />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
