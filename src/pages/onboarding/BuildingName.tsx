@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { ArrowRight } from "lucide-react";
 import OnboardingLayout from "@/components/OnboardingLayout";
 
 export default function BuildingName() {
@@ -17,23 +16,24 @@ export default function BuildingName() {
   return (
     <OnboardingLayout currentStep={3}>
       <h1 className="heading-md mb-2">Name your building.</h1>
-      <p className="text-muted-foreground mb-10">You can always add more buildings later.</p>
+      <p className="text-muted-foreground mb-8">You can always add more buildings later.</p>
 
-      <form onSubmit={handleSubmit}>
-        <div className="relative">
-          <input
-            type="text"
-            placeholder="e.g. Maple Ridge Tower"
-            value={buildingName}
-            onChange={(e) => setBuildingName(e.target.value)}
-            className="input-pill"
-            required
-            autoFocus
-          />
-          <button type="submit" className="input-arrow">
-            <ArrowRight className="w-4 h-4" strokeWidth={2} />
-          </button>
-        </div>
+      <form onSubmit={handleSubmit} className="space-y-5">
+        <input
+          type="text"
+          placeholder="e.g. Maple Ridge Tower"
+          value={buildingName}
+          onChange={(e) => setBuildingName(e.target.value)}
+          className="w-full h-12 px-3.5 rounded-lg border border-input bg-background text-foreground text-[15px] placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent transition-shadow"
+          required
+          autoFocus
+        />
+        <button
+          type="submit"
+          className="w-full h-11 rounded-lg bg-foreground text-primary-foreground text-[15px] font-medium hover:opacity-[0.88] transition-opacity"
+        >
+          Continue →
+        </button>
       </form>
     </OnboardingLayout>
   );

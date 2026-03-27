@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { ArrowRight } from "lucide-react";
 import OnboardingLayout from "@/components/OnboardingLayout";
 
 const ROLES = [
@@ -18,17 +17,19 @@ export default function Company() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (companyName.trim() && selectedRole) {
-      navigate("/onboarding/building-name");
+      // Navigate to next step (not yet built)
+      navigate("/onboarding/company");
     }
   };
 
   return (
     <OnboardingLayout currentStep={2}>
-      <h1 className="heading-md mb-10">Tell us about your company.</h1>
+      <h1 className="heading-md mb-2">Tell us about your company.</h1>
+      <p className="text-muted-foreground mb-8"> </p>
 
       <form onSubmit={handleSubmit} className="space-y-6">
         <div>
-          <label className="block text-[13px] font-medium text-muted-foreground mb-2 ml-1">
+          <label className="block text-[13.5px] font-medium text-foreground mb-1.5">
             Company Name
           </label>
           <input
@@ -36,13 +37,13 @@ export default function Company() {
             placeholder="Acme Property Group"
             value={companyName}
             onChange={(e) => setCompanyName(e.target.value)}
-            className="input-field"
+            className="w-full h-11 px-3.5 rounded-lg border border-input bg-background text-foreground text-[15px] placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent transition-shadow"
             required
           />
         </div>
 
         <div>
-          <label className="block text-[13px] font-medium text-muted-foreground mb-2 ml-1">
+          <label className="block text-[13.5px] font-medium text-foreground mb-1.5">
             Your Role
           </label>
           <div className="grid grid-cols-2 gap-2.5">
@@ -51,8 +52,10 @@ export default function Company() {
                 key={role}
                 type="button"
                 onClick={() => setSelectedRole(role)}
-                className={`role-pill ${
-                  selectedRole === role ? "role-pill-selected" : "role-pill-unselected"
+                className={`h-11 rounded-lg text-[14px] font-medium transition-all ${
+                  selectedRole === role
+                    ? "bg-foreground text-primary-foreground"
+                    : "bg-background border border-input text-muted-foreground hover:border-foreground/30"
                 }`}
               >
                 {role}
@@ -61,15 +64,13 @@ export default function Company() {
           </div>
         </div>
 
-        <div className="relative">
-          <button
-            type="submit"
-            disabled={!companyName.trim() || !selectedRole}
-            className="btn-primary-pill"
-          >
-            Continue
-          </button>
-        </div>
+        <button
+          type="submit"
+          disabled={!companyName.trim() || !selectedRole}
+          className="w-full h-11 rounded-lg bg-foreground text-primary-foreground text-[15px] font-medium hover:opacity-[0.88] transition-opacity disabled:opacity-40 disabled:cursor-not-allowed"
+        >
+          Continue →
+        </button>
       </form>
     </OnboardingLayout>
   );

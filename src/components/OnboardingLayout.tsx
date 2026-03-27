@@ -1,7 +1,6 @@
 import { ReactNode } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { Check, Building2 } from "lucide-react";
-import { useLocation } from "react-router-dom";
 
 const STEPS = [
   "Your Profile",
@@ -52,7 +51,7 @@ function StepIndicator({ step, currentStep }: { step: number; currentStep: numbe
   }
   return (
     <div className="w-5 h-5 flex items-center justify-center flex-shrink-0">
-      <div className="w-2 h-2 rounded-full bg-muted-foreground/40" />
+      <div className="w-2 h-2 rounded-full bg-muted-foreground/50" />
     </div>
   );
 }
@@ -60,11 +59,13 @@ function StepIndicator({ step, currentStep }: { step: number; currentStep: numbe
 function DesktopSidebar({ currentStep }: { currentStep: number }) {
   return (
     <aside className="hidden md:flex fixed left-0 top-0 bottom-0 w-[260px] flex-col bg-background border-r border-[hsl(0,0%,91%)] z-10">
+      {/* Logo */}
       <div className="px-6 pt-7 pb-8 flex items-center gap-2">
         <Building2 className="w-5 h-5 text-foreground" strokeWidth={2} />
-        <span className="text-[17px] font-medium tracking-tight text-foreground" style={{ fontWeight: 500 }}>REcollab</span>
+        <span className="text-[17px] font-bold tracking-tight text-foreground">REcollab</span>
       </div>
 
+      {/* Steps */}
       <nav className="flex-1 px-6">
         <ul className="space-y-1">
           {STEPS.map((label, i) => {
@@ -77,7 +78,7 @@ function DesktopSidebar({ currentStep }: { currentStep: number }) {
                 <span
                   className={`text-[13.5px] leading-none ${
                     isCurrent
-                      ? "font-medium text-foreground"
+                      ? "font-semibold text-foreground"
                       : isCompleted
                       ? "text-foreground"
                       : "text-muted-foreground"
@@ -91,13 +92,14 @@ function DesktopSidebar({ currentStep }: { currentStep: number }) {
         </ul>
       </nav>
 
+      {/* Tip */}
       {TIPS[currentStep] && (
         <div className="px-6 pb-6">
-          <div className="border border-input rounded-xl p-4">
-            <p className="text-[11px] font-medium text-muted-foreground uppercase tracking-widest mb-1.5">
+          <div className="border border-input rounded-lg p-4">
+            <p className="text-[11.5px] font-semibold text-muted-foreground uppercase tracking-wide mb-1.5">
               Tip
             </p>
-            <p className="text-[13px] leading-[1.5] text-muted-foreground">
+            <p className="text-[13px] leading-[1.45] text-muted-foreground">
               {TIPS[currentStep]}
             </p>
           </div>
@@ -111,7 +113,7 @@ function MobileTopBar({ currentStep }: { currentStep: number }) {
   const progress = ((currentStep - 1) / STEPS.length) * 100;
   return (
     <div className="md:hidden fixed top-0 left-0 right-0 bg-background z-20">
-      <div className="h-[2px] bg-muted">
+      <div className="h-1 bg-muted">
         <div
           className="h-full bg-foreground transition-all duration-500 ease-out"
           style={{ width: `${progress}%` }}
@@ -120,7 +122,7 @@ function MobileTopBar({ currentStep }: { currentStep: number }) {
       <div className="px-4 py-3 flex items-center justify-between">
         <div className="flex items-center gap-2">
           <Building2 className="w-4 h-4 text-foreground" strokeWidth={2} />
-          <span className="text-[14px] font-medium text-foreground">REcollab</span>
+          <span className="text-[14px] font-bold text-foreground">REcollab</span>
         </div>
         <span className="text-[13px] text-muted-foreground">{STEPS[currentStep - 1]}</span>
       </div>
@@ -128,37 +130,25 @@ function MobileTopBar({ currentStep }: { currentStep: number }) {
   );
 }
 
-const pageVariants = {
-  initial: { opacity: 0, y: 10, filter: "blur(0px)" },
-  animate: { opacity: 1, y: 0, filter: "blur(0px)" },
-  exit: { opacity: 0, y: -4, filter: "blur(4px)" },
-};
-
 export default function OnboardingLayout({ children, currentStep }: OnboardingLayoutProps) {
-  const location = useLocation();
-
   return (
     <div className="min-h-screen bg-background">
       <DesktopSidebar currentStep={currentStep} />
       <MobileTopBar currentStep={currentStep} />
 
-      <div className="md:ml-[260px] min-h-screen flex items-center justify-center px-5 py-16 md:py-8 onboarding-glow">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={location.pathname}
-            variants={pageVariants}
-            initial="initial"
-            animate="animate"
-            exit="exit"
-            transition={{ duration: 0.35, ease: [0.25, 0.1, 0.25, 1] }}
-            className="w-full max-w-[440px]"
-          >
-            <p className="text-[13px] text-muted-foreground mb-5">
-              Step {currentStep} of {STEPS.length}
-            </p>
-            {children}
-          </motion.div>
-        </AnimatePresence>
+      <div className="md:ml-[260px] min-h-screen flex items-center justify-center px-5 py-16 md:py-8">
+        <motion.div
+          key={currentStep}
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.35, ease: [0.25, 0.1, 0.25, 1] }}
+          className="w-full max-w-[440px]"
+        >
+          <p className="text-[13px] text-muted-foreground mb-4">
+            Step {currentStep} of {STEPS.length}
+          </p>
+          {children}
+        </motion.div>
       </div>
     </div>
   );

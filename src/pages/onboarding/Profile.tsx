@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { ArrowRight } from "lucide-react";
 import OnboardingLayout from "@/components/OnboardingLayout";
 
 export default function Profile() {
@@ -19,38 +18,39 @@ export default function Profile() {
   return (
     <OnboardingLayout currentStep={1}>
       <h1 className="heading-md mb-2">Let's start with you.</h1>
-      <p className="text-muted-foreground mb-10">We just need a few basics.</p>
+      <p className="text-muted-foreground mb-8">We just need a few basics.</p>
 
-      <form onSubmit={handleSubmit} className="space-y-4">
+      <form onSubmit={handleSubmit} className="space-y-5">
         <div>
-          <label className="block text-[13px] font-medium text-muted-foreground mb-2 ml-1">
+          <label className="block text-[13.5px] font-medium text-foreground mb-1.5">
             Full Name
           </label>
-          <div className="relative">
-            <input
-              type="text"
-              placeholder="Jane Cooper"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              className="input-pill"
-              required
-            />
-            <button type="submit" className="input-arrow">
-              <ArrowRight className="w-4 h-4" strokeWidth={2} />
-            </button>
-          </div>
+          <input
+            type="text"
+            placeholder="Jane Cooper"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            className="w-full h-11 px-3.5 rounded-lg border border-input bg-background text-foreground text-[15px] placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent transition-shadow"
+            required
+          />
         </div>
         <div>
-          <label className="block text-[13px] font-medium text-muted-foreground mb-2 ml-1">
+          <label className="block text-[13.5px] font-medium text-foreground mb-1.5">
             Email
           </label>
           <input
             type="email"
             value={passedEmail}
             disabled
-            className="input-field disabled:bg-muted disabled:text-muted-foreground disabled:cursor-not-allowed"
+            className="w-full h-11 px-3.5 rounded-lg border border-input bg-muted text-muted-foreground text-[15px] cursor-not-allowed"
           />
         </div>
+        <button
+          type="submit"
+          className="w-full h-11 rounded-lg bg-foreground text-primary-foreground text-[15px] font-medium hover:opacity-[0.88] transition-opacity mt-3"
+        >
+          Continue →
+        </button>
       </form>
     </OnboardingLayout>
   );

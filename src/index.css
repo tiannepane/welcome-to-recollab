@@ -48,70 +48,14 @@
   }
 }
 
-/* Radial glow behind content */
-.onboarding-glow {
-  background: radial-gradient(
-    ellipse 60% 50% at 50% 45%,
-    rgba(0, 0, 0, 0.03) 0%,
-    transparent 70%
-  );
-}
-
-/* Pill input base */
-.input-pill {
-  @apply w-full h-12 pl-5 pr-14 rounded-full border border-input bg-background text-foreground text-[15px] placeholder:text-muted-foreground transition-all duration-200;
-}
-.input-pill:focus {
-  @apply outline-none border-foreground;
-}
-
-/* Pill input for forms with multiple fields (no embedded arrow) */
-.input-field {
-  @apply w-full h-12 px-5 rounded-full border border-input bg-background text-foreground text-[15px] placeholder:text-muted-foreground transition-all duration-200;
-}
-.input-field:focus {
-  @apply outline-none border-foreground;
-}
-.input-field:disabled {
-  @apply bg-muted text-muted-foreground cursor-not-allowed;
-}
-
-/* Embedded circle arrow button */
-.input-arrow {
-  @apply absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-foreground text-primary-foreground flex items-center justify-center hover:opacity-[0.88] transition-opacity;
-}
-
-/* Role pill buttons */
-.role-pill {
-  @apply h-11 rounded-full text-[14px] font-medium transition-all duration-200 cursor-pointer;
-}
-.role-pill-unselected {
-  @apply bg-background border border-input text-muted-foreground hover:border-foreground/40;
-}
-.role-pill-selected {
-  @apply bg-foreground text-primary-foreground border border-foreground;
-}
-
-/* Ghost button (Google sign in etc) */
-.btn-ghost-pill {
-  @apply w-full h-12 rounded-full border border-input bg-background text-foreground text-[15px] font-medium hover:bg-muted/50 transition-colors flex items-center justify-center gap-2.5;
-}
-
-/* Full-width pill submit */
-.btn-primary-pill {
-  @apply w-full h-12 rounded-full bg-foreground text-primary-foreground text-[15px] font-medium hover:opacity-[0.88] transition-opacity disabled:opacity-40 disabled:cursor-not-allowed;
-}
-
 @layer utilities {
   .heading-lg {
-    @apply text-[32px] tracking-tight leading-tight text-foreground;
-    font-weight: 500;
+    @apply text-[32px] font-bold tracking-tight leading-tight text-foreground;
     letter-spacing: -0.025em;
   }
 
   .heading-md {
-    @apply text-[28px] tracking-tight leading-tight text-foreground;
-    font-weight: 500;
+    @apply text-[28px] font-bold tracking-tight leading-tight text-foreground;
     letter-spacing: -0.025em;
   }
 }
