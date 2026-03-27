@@ -12,6 +12,8 @@ import BuildingDetails from "./pages/onboarding/BuildingDetails";
 import BuildingHistory from "./pages/onboarding/BuildingHistory";
 import AnythingElse from "./pages/onboarding/AnythingElse";
 import Complete from "./pages/onboarding/Complete";
+import UploadPage from "./pages/Upload";
+import Buildings from "./pages/Buildings";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -33,6 +35,8 @@ const App = () => (
           <Route path="/onboarding/building-history" element={<BuildingHistory />} />
           <Route path="/onboarding/anything-else" element={<AnythingElse />} />
           <Route path="/onboarding/complete" element={<Complete />} />
+          <Route path="/upload" element={<UploadPage />} />
+          <Route path="/buildings" element={<Buildings />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
