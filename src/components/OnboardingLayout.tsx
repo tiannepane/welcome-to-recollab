@@ -5,13 +5,12 @@ import { Check, Building2 } from "lucide-react";
 const STEPS = [
   "Your Profile",
   "Company Info",
-  "Portfolio Size",
-  "Building Types",
-  "Reserve Studies",
-  "Financial Goals",
-  "Team Members",
-  "Integrations",
-  "Review & Launch",
+  "Building Name",
+  "Address",
+  "Building Details",
+  "Building History",
+  "Anything Else",
+  "Complete",
 ];
 
 const TIPS: Record<number, string> = {
@@ -21,9 +20,7 @@ const TIPS: Record<number, string> = {
   4: "Different building types have different reserve fund requirements and lifecycles.",
   5: "Importing existing studies saves an average of 12 hours of manual data entry.",
   6: "Clear financial goals help us surface the most relevant insights and alerts.",
-  7: "Teams using REcollab together see 3x faster reserve study completion.",
-  8: "Integrations reduce duplicate data entry and keep your records in sync.",
-  9: "You're almost there! Review your setup before launching your workspace.",
+  7: "Almost there — share anything that helps us tailor your experience.",
 };
 
 interface OnboardingLayoutProps {
