@@ -18,7 +18,7 @@ export default function Company() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (companyName.trim() && selectedRole) {
-      navigate("/onboarding/building-name");
+      navigate("/onboarding/building-intro");
     }
   };
 
